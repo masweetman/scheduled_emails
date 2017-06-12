@@ -6,6 +6,8 @@
 <table class="list">
   <thead><tr>
     <th><%= l(:field_name) %></th>
+    <th><%= l(:field_recipient)%></th>
+    <th><%= l(:field_subject) %></th>
     <th><%= l(:next_email) %></th>
     <th></th>
   </tr></thead>
@@ -13,6 +15,8 @@
 <% for scheduled_email in @scheduled_emails %>
   <tr class="<%= cycle('odd', 'even') %>">
     <td><%= link_to scheduled_email.name, edit_scheduled_email_path(scheduled_email) %></td>
+    <td><%= scheduled_email.recipient %></td>
+    <td><%= scheduled_email.subject %></td>
     <td><%= scheduled_email.next_send %></td>
     <td><%= link_to l(:button_delete), scheduled_email_path(scheduled_email), :method => :delete, :data => {:confirm => l(:text_are_you_sure)} ,:class => 'icon icon-del' %></td>
   </tr>
