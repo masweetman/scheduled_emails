@@ -4,5 +4,6 @@ namespace :redmine do
       if scheduled_email.next_send == Date.today
         Mailer.send_scheduled_email(scheduled_email).deliver
       end
+    end
   end
 end
