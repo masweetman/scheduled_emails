@@ -1,5 +1,7 @@
 class ScheduledEmailsController < ApplicationController
   unloadable
+  
+  before_action :require_admin
 
   def index
     @scheduled_emails = ScheduledEmail.all

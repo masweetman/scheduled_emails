@@ -1,5 +1,7 @@
 class SendSchedulesController < ApplicationController
   unloadable
+  
+  before_action :require_admin
 
   def new
     @scheduled_email = ScheduledEmail.find(params[:scheduled_email_id])
