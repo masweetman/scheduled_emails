@@ -1,0 +1,32 @@
+<%= render :partial => 'scheduled_email_menu' %>
+
+<h2>New Scheduled Email</h2>
+
+<%= labelled_form_for @scheduled_email do |f| %>
+  <div class='box tabular'>
+    <p>
+      <%= f.text_field :name, required: true %>
+    </p>
+    <p>
+      <%= f.text_field :recipient, required: true %>
+    </p>
+    <p>
+      <%= f.text_field :subject, required: true %>
+    </p>
+    <p>
+      <%= f.label_for_field :message, required: true %>
+      <%= content_tag 'span', :id => "message_and_toolbar" do %>
+        <%= f.text_area :message,
+                   :cols => 60,
+                   :rows => [[10, @scheduled_email.message.to_s.length / 50].max, 20].min,
+                   :accesskey => accesskey(:edit),
+                   :class => 'wiki-edit',
+                   :no_label => true %>
+      <% end %>
+    </p>
+    <%= wikitoolbar_for 'scheduled_email_message' %>
+  </div>
+  <p>
+    <%= f.submit l(:button_submit) %>
+  </p>
+<% end %>

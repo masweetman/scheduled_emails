@@ -1,0 +1,18 @@
+en:
+  label_scheduled_email_plural: Scheduled Emails
+  field_recipient: Recipient
+  field_message: Message
+  label_back: Back
+  button_add_schedule: Add schedule
+  button_save_email: Save email
+  field_send_at: First send on
+  not_scheduled: Email not yet scheduled. Create a schedule below.
+  every_day: Every day of the month
+  every_month: Every month of the year
+  every: Every
+
+  next_email: Next email
+  field_month_day: Days
+  field_week: Weeks
+  field_week_day: Weekdays
+  field_month: Months

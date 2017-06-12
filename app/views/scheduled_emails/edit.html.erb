@@ -1,0 +1,87 @@
+<%= render :partial => 'scheduled_email_menu' %>
+
+<h2>Edit <%= @scheduled_email.name %></h2>
+
+<%= labelled_form_for @scheduled_email do |f| %>
+  <div class='box tabular'>
+    <p>
+      <%= f.text_field :name, required: true %>
+    </p>
+    <p>
+      <%= f.text_field :recipient, required: true %>
+    </p>
+    <p>
+      <%= f.text_field :subject, required: true %>
+    </p>
+    <p>
+      <%= f.label_for_field :message, required: true %>
+      <%= content_tag 'span', :id => "message_and_toolbar" do %>
+        <%= f.text_area :message,
+                   :cols => 60,
+                   :rows => [[10, @scheduled_email.message.to_s.length / 50].max, 20].min,
+                   :accesskey => accesskey(:edit),
+                   :class => 'wiki-edit',
+                   :no_label => true %>
+      <% end %>
+    </p>
+    <%= wikitoolbar_for 'scheduled_email_message' %>
+  </div>
+  <p>
+    <%= f.submit l(:button_save_email) %>
+  </p>
+<% end %>
+
+<h3>Schedules</h3>
+
+<div class="autoscroll">
+  <% if @scheduled_email.send_schedules.any? %>
+    <table class="list">
+      <thead><tr>
+        <th><%= l(:next_email) %></th>
+        <th><%= l(:field_month_day) %></th>
+        <th><%= l(:field_week_day) %></th>
+        <th><%= l(:field_month) %></th>
+        <th></th>
+      </tr></thead>
+      <tbody>
+        <% for send_schedule in @scheduled_email.send_schedules %>
+          <tr class="<%= cycle('odd', 'even') %>">
+            <td><%= send_schedule.next_send %></td>
+            <td><%= send_schedule.day_text %></td>
+            <td>
+              <% send_schedule.week_text.each do |wt| %>
+                <%= wt %><br>
+              <% end %>
+            </td>
+            <td><%= send_schedule.month_text %></td>
+            <td><%= link_to l(:button_delete), scheduled_email_send_schedule_path(@scheduled_email, send_schedule), :method => :delete, :data => {:confirm => l(:text_are_you_sure)} ,:class => 'icon icon-del' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <%= l(:not_scheduled) %>
+  <% end %>
+</div>
+
+<h4>Add new schedule</h4>
+
+<%= labelled_form_for([@scheduled_email, @scheduled_email.send_schedules.build]) do |f| %>
+  <div class='box tabular'>
+    <p>
+      <%= f.select :month_day, (1..31).to_a, { :include_blank => false }, { :style => 'min-width: 130px;', :multiple => true, :size => 10 } %>
+    </p>
+    <p>
+      <%= f.select :week, (1..5).to_a, { :include_blank => false }, { :style => 'min-width: 130px;', :multiple => true, :size => 5 } %>
+    </p>
+    <p>
+      <%= f.select :week_day, list_weekdays, { :include_blank => false }, { :style => 'min-width: 130px;', :multiple => true, :size => 7 } %>
+    </p>
+    <p>
+      <%= f.select :month, list_months, { :include_blank => false, :required => true }, { :style => 'min-width: 130px;', :multiple => true, :size => 10 } %>
+    </p>
+    <p>
+      <%= f.submit l(:button_add_schedule) %>
+    </p>
+  </div>
+<% end %>
