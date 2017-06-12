@@ -28,8 +28,12 @@ class SendSchedule < ActiveRecord::Base
       month.each do |m|
         start_date = m.to_date
         end_date = start_date + 1.month - 1
-        dates += (start_date..end_date).to_a.select {|d| week_day.map{ |e| e.to_date.wday }.include?(d.wday)}
+        all_dates = (start_date..end_date).to_a.select{|d| week_day.map{ |e| e.to_date.wday }.include?(d.wday)}
+        week.each do |w|
+	 dates << all_dates[w.to_i - 1]
+	end 
       end
+      dates.compact!
       dates << dates.sort.first + 1.year
     end
     return dates.reject{ |d| d < Date.today }
