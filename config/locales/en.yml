@@ -1,6 +1,7 @@
 en:
   label_scheduled_email_plural: Scheduled Emails
   field_recipient: Recipient
+  field_sender: Sender
   field_message: Message
   label_back: Back
   button_add_schedule: Add schedule

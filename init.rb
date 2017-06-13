@@ -1,5 +1,3 @@
-require_dependency 'scheduled_mailer_patch'
-
 Redmine::Plugin.register :scheduled_emails do
 
 	  name 'Scheduled Emails plugin'
